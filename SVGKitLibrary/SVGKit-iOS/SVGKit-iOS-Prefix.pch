@@ -3,20 +3,40 @@
 //
 
 #ifdef __OBJC__
-#import <Foundation/Foundation.h>
-#import <CocoaLumberjack/CocoaLumberjack.h>
+@import Foundation;
+@import os.log;
 
-#define SVGKIT_LOG_CONTEXT 556
+//#define SVGKitLogError(frmt, ...) \
+//    NSString *string = [NSString stringWithFormat:frmt, ##__VA_ARGS__]; \
+//    os_log_with_type(OS_LOG_DEFAULT, OS_LOG_TYPE_FAULT, "%{public}s", [string UTF8String]); \
 
-#define SVGKitLogError(frmt, ...)   LOG_MAYBE(NO,                LOG_LEVEL_DEF, DDLogFlagError,   SVGKIT_LOG_CONTEXT, nil, __PRETTY_FUNCTION__, frmt, ##__VA_ARGS__)
-#define SVGKitLogWarn(frmt, ...)    LOG_MAYBE(LOG_ASYNC_ENABLED, LOG_LEVEL_DEF, DDLogFlagWarning, SVGKIT_LOG_CONTEXT, nil, __PRETTY_FUNCTION__, frmt, ##__VA_ARGS__)
-#define SVGKitLogInfo(frmt, ...)    LOG_MAYBE(LOG_ASYNC_ENABLED, LOG_LEVEL_DEF, DDLogFlagInfo,    SVGKIT_LOG_CONTEXT, nil, __PRETTY_FUNCTION__, frmt, ##__VA_ARGS__)
-#define SVGKitLogDebug(frmt, ...)   LOG_MAYBE(LOG_ASYNC_ENABLED, LOG_LEVEL_DEF, DDLogFlagDebug,   SVGKIT_LOG_CONTEXT, nil, __PRETTY_FUNCTION__, frmt, ##__VA_ARGS__)
-#define SVGKitLogVerbose(frmt, ...) LOG_MAYBE(LOG_ASYNC_ENABLED, LOG_LEVEL_DEF, DDLogFlagVerbose, SVGKIT_LOG_CONTEXT, nil, __PRETTY_FUNCTION__, frmt, ##__VA_ARGS__)
+//#define SVGKitLogWarn(frmt, ...) \
+//    NSString *string = [NSString stringWithFormat: frmt, ##__VA_ARGS__]; \
+//    os_log_with_type(OS_LOG_DEFAULT, OS_LOG_TYPE_ERROR, "%{public}@", string); \
+//
+//#define SVGKitLogInfo(frmt, ...) \
+//    NSString *string = [NSString stringWithFormat: frmt, ##__VA_ARGS__]; \
+//    os_log_with_type(OS_LOG_DEFAULT, OS_LOG_TYPE_INFO, "%{public}@", string); \
+//
+//#define SVGKitLogDebug(frmt, ...) \
+//    NSString *string = [NSString stringWithFormat: frmt, ##__VA_ARGS__]; \
+//    os_log_with_type(OS_LOG_DEFAULT, OS_LOG_TYPE_DEBUG, "%{public}@", string); \
+//
+//#define SVGKitLogVerbose(frmt, ...) \
+//    NSString *string = [NSString stringWithFormat: frmt, ##__VA_ARGS__]; \
+//    os_log_with_type(OS_LOG_DEFAULT, OS_LOG_TYPE_DEFAULT, "%{public}@", string); \
+
+#define SVGKitLogError(frmt, ...) os_log_with_type(OS_LOG_DEFAULT, OS_LOG_TYPE_FAULT, frmt, ##__VA_ARGS__)
+#define SVGKitLogWarn(frmt, ...) os_log_with_type(OS_LOG_DEFAULT, OS_LOG_TYPE_ERROR, frmt, ##__VA_ARGS__)
+#define SVGKitLogInfo(frmt, ...) os_log_with_type(OS_LOG_DEFAULT, OS_LOG_TYPE_INFO, frmt, ##__VA_ARGS__)
+#define SVGKitLogDebug(frmt, ...)   os_log_with_type(OS_LOG_DEFAULT, OS_LOG_TYPE_DEBUG, frmt, ##__VA_ARGS__)
+#define SVGKitLogVerbose(frmt, ...) os_log_with_type(OS_LOG_DEFAULT, OS_LOG_TYPE_DEFAULT, frmt, ##__VA_ARGS__)
+
+
 
 #if DEBUG
-static const int ddLogLevel = DDLogLevelVerbose;
+//static const int ddLogLevel = DDLogLevelVerbose;
 #else
-static const int ddLogLevel = DDLogLevelWarning;
+//static const int ddLogLevel = DDLogLevelWarning;
 #endif
 #endif
